@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #16181d;
+  background: #fff;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
