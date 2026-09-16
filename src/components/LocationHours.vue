@@ -19,7 +19,8 @@ const rows = practice.hours.map((h, i) => ({
   <section id="hours" class="hours" aria-labelledby="hours-title">
     <div class="container hours__grid">
       <div class="hours__board">
-        <h2 id="hours-title" class="visually-hidden">Hours and location</h2>
+        <p class="hours__eyebrow">Location & hours</p>
+        <h2 id="hours-title" class="hours__title">Find us</h2>
 
         <table class="board">
           <caption class="visually-hidden">Weekly hours, {{ practice.name }}</caption>
@@ -87,6 +88,22 @@ const rows = practice.hours.map((h, i) => ({
 }
 
 /* ---- Departure board ---- */
+.hours__eyebrow {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.hours__title {
+  margin: 0 0 var(--space-8);
+  font-size: var(--text-h2);
+  font-weight: 650;
+  letter-spacing: var(--tracking-heading);
+}
+
 .board {
   width: 100%;
   border-collapse: collapse;

@@ -214,6 +214,10 @@ const firstVisitRows = [
   .hero__media {
     grid-column: 8 / -1;
     margin-inline-end: calc(-1 * (var(--gutter) + max(0px, (100vw - var(--container) - 2 * var(--gutter)) / 2)));
+    /* Ultra-wide viewports: cap it so a 4:5 portrait doesn't grow into a wall of face —
+       the bleed keeps reaching the viewport edge, it just stops getting wider past this. */
+    max-width: 640px;
+    margin-left: auto;
   }
 
   .hero__photo {

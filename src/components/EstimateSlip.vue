@@ -212,7 +212,7 @@ const figureIsText = computed(() => mode.value === 'insured' || !practice.showPr
   font-family: var(--font-figure);
   font-variant-numeric: tabular-nums;
   font-size: var(--text-figure);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-figure);
   white-space: nowrap;
   text-align: right;
@@ -307,16 +307,28 @@ const figureIsText = computed(() => mode.value === 'insured' || !practice.showPr
   padding-block: var(--space-3);
 }
 
-.slip-wrap--compact .row__name {
-  font-size: var(--text-small);
+/* The hero's single-row slip is the signature moment — let the price carry it, big. */
+.slip-wrap--compact .row__line {
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
 }
 
-.slip-wrap--compact .row__leader {
-  min-width: var(--space-4);
+.slip-wrap--compact .row__name {
+  flex-basis: 100%;
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-2);
+}
+
+.slip-wrap--compact .row__leader,
+.slip-wrap--compact .row__arrow {
+  display: none;
 }
 
 .slip-wrap--compact .row__figure {
-  font-size: var(--text-small);
+  font-size: var(--text-figure-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-ink);
 }
 
 .slip-wrap--compact .slip__foot {

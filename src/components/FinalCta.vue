@@ -32,11 +32,8 @@ const status = openStatus()
   padding-block: var(--section-open);
 }
 
-.final-cta__inner {
-  max-width: 44ch;
-}
-
 .final-cta__title {
+  max-width: 20ch;
   font-size: var(--text-h1);
   font-weight: var(--weight-bold);
   line-height: var(--leading-heading);
@@ -45,6 +42,7 @@ const status = openStatus()
 }
 
 .final-cta__status {
+  max-width: 44ch;
   margin-top: var(--space-4);
   font-size: var(--text-body-lg);
   color: var(--color-ink-2);

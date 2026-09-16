@@ -188,11 +188,14 @@ function onTabKeydown(e, index) {
   }
 
   .results__viewer {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 5;
+    /* The source photos are portrait (698×894) — cap width so a tall crop never
+       dominates the section the way a landscape image would at this column width. */
+    max-width: 420px;
   }
 
   .results__notes {
-    grid-column: 9 / -1;
+    grid-column: 6 / -1;
     padding-top: var(--space-2);
   }
 }

@@ -7,6 +7,7 @@ export const practice = {
   mapUrl: 'https://maps.google.com/?q=2408+Barton+Springs+Rd+Austin+TX+78704',
   phoneDisplay: '(512) 648-2210',
   phoneHref: 'tel:+15126482210',
+  email: 'hello@orviadental.example',
   rating: 4.9,
   reviewCount: 287,
   yearsInPractice: 18,
@@ -30,6 +31,7 @@ export const practice = {
     { slug: 'childrens-dentistry', name: "Children's first visit", detail: 'Gentle exam and cleaning · 30 min', price: '$79–$129', insured: 'We check your plan first' },
     { slug: 'root-canal', name: 'Root canal', detail: 'Front tooth to molar · 1–2 visits', price: '$700–$1,400', insured: 'Often partly covered', tags: ['Sedation available'] },
     { slug: 'veneers', name: 'Veneers', detail: 'Per tooth · 2 visits', price: '$900–$1,800', insured: 'Usually not covered' },
+    { slug: 'sedation-dentistry', name: 'Sedation dentistry', detail: 'Nitrous, oral, or IV · added to any visit', price: '$50–$500', insured: 'Usually not covered' },
   ],
 
   // ---- Everything below is SAMPLE content for the demo. Replace per client. ----
