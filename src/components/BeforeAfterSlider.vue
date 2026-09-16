@@ -60,7 +60,7 @@ function onPointerUp() {
     </div>
 
     <input
-      class="slider__range visually-hidden"
+      class="slider__range"
       type="range"
       min="0"
       max="100"
@@ -136,13 +136,35 @@ function onPointerUp() {
   pointer-events: none;
 }
 
+/* Visually hidden but still hit-testable and focusable — the generic .visually-hidden
+   utility collapses to 1x1px, which breaks both click and keyboard interaction on a
+   range input (confirmed: focus lands but arrow keys and clicks do nothing). */
 .slider__range {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
   cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.slider__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 44px;
+  height: 44px;
+}
+
+.slider__range::-moz-range-thumb {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
 }
 
 .slider:focus-within {
