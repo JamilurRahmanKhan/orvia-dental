@@ -64,7 +64,7 @@ const firstVisitRows = [
             sizes="100vw"
             width="800"
             height="600"
-            alt="Dr. Amara Cole, dentist at Orvia Dental"
+            alt="A dentist talking through a treatment plan with a patient"
             fetchpriority="high"
           />
         </picture>
