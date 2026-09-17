@@ -33,15 +33,15 @@ onMounted(() => {
           anything happens to your teeth, not after.
         </p>
         <p class="story__text">
-          So we built the practice around the estimate slip — the thing you sign before we pick
+          So we built the practice around the estimate slip — the paper you sign before we pick
           up a single instrument. Every checkup, filling and root canal starts with a number in
-          writing, and a plan you understood well enough to say yes to on purpose.
+          writing. You know the price and the plan before you agree to either.
         </p>
         <p class="story__text">
-          We're a general and family practice in South Austin, the kind of place where the same
-          hygienist remembers your kid's name and your dentist explains the X-ray instead of just
-          pointing at it. We keep evening and Saturday hours because most of Austin works during
-          the day, and we hold same-day slots for the mornings someone wakes up in pain.
+          We're a general and family practice in South Austin. The same hygienist remembers your
+          kid's name. Your dentist explains the X-ray instead of just pointing at it. We keep
+          evening and Saturday hours because most of Austin works during the day, and we hold
+          same-day slots for the mornings someone wakes up in pain.
         </p>
         <p class="story__text">
           Insurance is confusing enough without an office making it worse, so we check your plan
@@ -65,7 +65,7 @@ onMounted(() => {
           loading="lazy"
           alt="Dental instruments laid out on a clean tray at Orvia Dental"
         />
-        <figcaption class="story__caption">In writing before we start. Every time.</figcaption>
+        <figcaption class="story__caption card">In writing before we start. Every time.</figcaption>
       </figure>
     </div>
   </section>
@@ -134,6 +134,7 @@ onMounted(() => {
 
 .story__figure {
   margin: 0;
+  position: relative;
 }
 
 .story__photo {
@@ -142,10 +143,17 @@ onMounted(() => {
   object-fit: cover;
 }
 
+/* Floating promise card: echoes the hero's compact estimate slip, overlapping the
+   photo's bottom edge by the same --space-12 (48px) offset used there. */
 .story__caption {
-  margin-top: var(--space-3);
-  font-size: var(--text-caption);
-  color: var(--color-ink-3);
+  position: relative;
+  margin: calc(-1 * var(--space-12)) var(--space-5) 0;
+  max-width: calc(100% - 2 * var(--space-5));
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
 }
 
 @media (min-width: 1024px) {

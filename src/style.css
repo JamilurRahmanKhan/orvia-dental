@@ -99,6 +99,28 @@ a {
   box-shadow: inset 0 0 0 1.5px var(--color-ink-3);
 }
 
+/* ---- Card: one elevation system for every tappable card/panel on the site.
+   Resting cards read as paper (hairline + shadow-xs); hovering or focusing one
+   lifts it slightly and deepens the shadow, so the whole site has a consistent
+   sense of physical layering instead of flat blocks. ---- */
+.card {
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.card--tap:hover,
+.card--tap:focus-within {
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-rule-strong);
+}
+
 /* ---- Buttons: one system for the whole site ---- */
 .btn {
   display: inline-flex;
@@ -119,23 +141,28 @@ a {
   transition:
     background-color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
     transform var(--dur-instant) var(--ease-out);
 }
 
 .btn:active {
   transform: translateY(1px);
+  box-shadow: none;
 }
 
 .btn--primary {
   background: var(--color-accent);
   color: var(--color-on-accent);
+  box-shadow: var(--shadow-xs);
 }
 
-.btn--primary:hover {
+.btn--primary:hover:not(:disabled) {
   background: var(--color-accent-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
-.btn--primary:active {
+.btn--primary:active:not(:disabled) {
   background: var(--color-accent-active);
 }
 
@@ -145,8 +172,19 @@ a {
   border-color: var(--color-rule-strong);
 }
 
-.btn--secondary:hover {
+.btn--secondary:hover:not(:disabled) {
   border-color: var(--color-ink);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-disabled-ink);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
 }
 
 .btn--lg {

@@ -56,7 +56,7 @@ function onTabKeydown(e, index) {
       </div>
 
       <div class="results__notes" role="tabpanel">
-        <h2 id="results-title" class="results__title">See what's possible</h2>
+        <h2 id="results-title" class="results__title">Real results from our patients</h2>
 
         <dl class="chart">
           <div class="chart__row">

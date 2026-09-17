@@ -21,8 +21,9 @@ onMounted(() => {
         <p v-if="practice.demo" class="reviews-hero__demo-note">Sample reviews for demo.</p>
       </div>
       <p class="reviews-hero__lede">
-        These are about the experience of coming in, not our clinical skill — Texas rules keep it
-        that way. What our patients say about their visit is here in full, with nothing hidden.
+        These reviews are about the experience of coming in, not about clinical skill — Texas
+        rules keep it that way. What patients say about their visit is here in full, with nothing
+        hidden.
       </p>
     </div>
   </section>

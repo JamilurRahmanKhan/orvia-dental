@@ -125,11 +125,9 @@ export const practice = {
     ],
     Patients: [
       { label: 'New patients', href: '/new-patients/' },
-      { label: 'Patient forms', href: '/new-patients/forms/' },
       { label: 'Insurance & financing', href: '/insurance-and-financing/' },
       { label: 'Membership plan', href: '/membership-plan/' },
       { label: 'FAQ', href: '/faq/' },
-      { label: 'Blog', href: '/blog/' },
     ],
     Practice: [
       { label: 'About', href: '/about/' },

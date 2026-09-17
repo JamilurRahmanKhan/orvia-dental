@@ -18,6 +18,12 @@ onMounted(() => {
   }
 })
 
+function formatDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-').map(Number)
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+}
+
 function calendarLink() {
   if (!data.value?.date || !data.value?.time) return null
   const [h, m] = data.value.time.split(':').map(Number)
@@ -39,7 +45,7 @@ function calendarLink() {
       <h1 class="confirmed__title">Got it — we'll confirm your time.</h1>
       <p class="confirmed__lede">
         Thanks, {{ data.name }}. We'll text or call you within one business hour to lock in your
-        {{ data.reason.toLowerCase() }} for {{ data.date || 'your preferred day' }}
+        {{ data.reason.toLowerCase() }} for {{ data.date ? formatDate(data.date) : 'your preferred day' }}
         ({{ data.timePreference || 'flexible' }}).
       </p>
     </template>
@@ -47,7 +53,7 @@ function calendarLink() {
       <h1 class="confirmed__title">You're booked.</h1>
       <p class="confirmed__lede">
         {{ data.name }}, your {{ data.reason.toLowerCase() }} is set for
-        <span class="figure">{{ data.date }}</span> at <span class="figure">{{ data.time }}</span>.
+        <span class="figure">{{ formatDate(data.date) }}</span> at <span class="figure">{{ data.time }}</span>.
       </p>
       <a v-if="calendarLink()" class="link-arrow" :href="calendarLink()" target="_blank" rel="noopener">
         Add to Google Calendar

@@ -105,6 +105,8 @@ onUnmounted(() => {
 
 .faq__list {
   order: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .faq__still {
@@ -113,7 +115,7 @@ onUnmounted(() => {
   color: var(--color-ink-2);
 }
 
-/* ---- Accordion rows ---- */
+/* ---- Accordion rows: an index, hairline-separated — not individual cards. ---- */
 .faq__item {
   border-bottom: var(--border-hair);
 }

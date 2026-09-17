@@ -28,7 +28,7 @@ onMounted(() => {
       <div class="container">
         <h2 id="methods-title" class="visually-hidden">Payment methods and financing</h2>
         <div class="methods__grid">
-          <div class="methods__col">
+          <div class="methods__col card">
             <h3 class="methods__heading">How you can pay</h3>
             <dl class="method-list">
               <div class="method-row">
@@ -46,7 +46,7 @@ onMounted(() => {
             </dl>
           </div>
 
-          <div class="methods__col">
+          <div class="methods__col card">
             <h3 class="methods__heading">Financing, if you need it</h3>
             <dl class="method-list">
               <div class="method-row">
@@ -58,8 +58,8 @@ onMounted(() => {
               <div class="method-row">
                 <dt class="method-row__term">Cherry &amp; Sunbit</dt>
                 <dd class="method-row__desc">
-                  Fast, soft-credit-check plans approved at the front desk in about a minute — built for
-                  patients who don't qualify for CareCredit, or just want another option.
+                  A quick approval that won't affect your credit score, done at the front desk in about
+                  a minute — a good option if you don't qualify for CareCredit, or just want to compare.
                 </dd>
               </div>
             </dl>
@@ -156,7 +156,11 @@ onMounted(() => {
 
 .methods__grid {
   display: grid;
-  gap: var(--space-12);
+  gap: var(--space-8);
+}
+
+.methods__col {
+  padding: var(--space-6);
 }
 
 .methods__heading {

@@ -111,9 +111,17 @@
   --border-control: 1px solid var(--color-rule-strong);
   --border-leader: 1px dotted var(--color-ink-3);
 
-  /* ---- Shadows ---- */
+  /* ---- Shadows: layered per surface, tuned to --color-ink. Resting cards use -xs/-sm;
+     interactive cards add -md on hover; -slip/-pop stay reserved for the estimate slip
+     and floating chrome (menus, handle). ---- */
+  --shadow-xs: 0 1px 1px rgb(27 31 29 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(27 31 29 / 0.05), 0 4px 10px -6px rgb(27 31 29 / 0.14);
+  --shadow-md: 0 2px 4px rgb(27 31 29 / 0.05), 0 10px 24px -10px rgb(27 31 29 / 0.22);
   --shadow-slip: 0 1px 0 rgb(27 31 29 / 0.06), 0 18px 40px -20px rgb(27 31 29 / 0.28);
   --shadow-pop: 0 24px 60px -24px rgb(27 31 29 / 0.35);
+
+  /* ---- Elevation interaction: hover/focus lift for tappable cards ---- */
+  --lift-hover: -4px;
 
   /* ---- Focus ---- */
   --focus-ring: 2px solid var(--color-focus);

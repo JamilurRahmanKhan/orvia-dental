@@ -16,9 +16,12 @@ const links = [
 <template>
   <section class="notfound" aria-labelledby="notfound-title">
     <div class="container notfound__wrap">
-      <p class="notfound__eyebrow figure" aria-hidden="true">404</p>
-      <h1 id="notfound-title" class="notfound__title">That page moved or never existed.</h1>
-      <p class="notfound__lede">Here's where people usually end up next.</p>
+      <p class="notfound__eyebrow figure" aria-hidden="true">404 — page not found</p>
+      <h1 id="notfound-title" class="notfound__title">We can't find that page, but we can get you where you're going.</h1>
+      <p class="notfound__lede">
+        The link may be out of date, or the address may be off by a little. Here's where people
+        usually end up next.
+      </p>
 
       <ul class="notfound__list">
         <li v-for="link in links" :key="link.href" class="notfound__row">

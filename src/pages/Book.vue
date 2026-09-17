@@ -133,6 +133,8 @@ function back() {
   if (stepIndex.value > 0) stepIndex.value--
 }
 
+const phoneValid = computed(() => form.value.phone.replace(/\D/g, '').length >= 10)
+
 const canProceed = computed(() => {
   if (step.value === 'patient') return Boolean(form.value.patientType)
   if (step.value === 'reason') return Boolean(form.value.reason)
@@ -140,9 +142,26 @@ const canProceed = computed(() => {
     if (useFallback.value) return Boolean(form.value.date && form.value.timePreference)
     return Boolean(form.value.date && form.value.time)
   }
-  if (step.value === 'details') return Boolean(form.value.name && form.value.phone)
+  if (step.value === 'details') return Boolean(form.value.name && phoneValid.value)
   return true
 })
+
+const continueHint = computed(() => {
+  if (canProceed.value) return ''
+  if (step.value === 'time') return useFallback.value ? 'Pick a date and a time of day to continue.' : 'Pick a date and a time to continue.'
+  if (step.value === 'details') {
+    if (!form.value.name) return 'Add your name to continue.'
+    if (!form.value.phone) return 'Add a mobile number to continue.'
+    return 'That mobile number looks incomplete — check it and try again.'
+  }
+  return ''
+})
+
+function formatDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-').map(Number)
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+}
 
 onMounted(() => {
   setMeta(`Book an Appointment | ${practice.name}`, `Book online in under a minute. No account, no phone tag. Same-day emergency slots available.`)
@@ -151,6 +170,7 @@ onMounted(() => {
 
 <template>
   <div class="book container">
+    <h1 class="visually-hidden">Book an appointment at {{ practice.name }}</h1>
     <div class="book__head">
       <a class="link-arrow book__back-home" href="/">
         <ChevronLeft :size="16" :stroke-width="1.75" aria-hidden="true" />
@@ -180,7 +200,7 @@ onMounted(() => {
           v-for="opt in ['New patient', 'Existing patient']"
           :key="opt"
           type="button"
-          class="tile"
+          class="tile card card--tap"
           :class="{ 'is-selected': form.patientType === opt }"
           @click="form.patientType = opt; next()"
         >
@@ -197,7 +217,7 @@ onMounted(() => {
           v-for="r in reasons"
           :key="r.id"
           type="button"
-          class="tile"
+          class="tile card card--tap"
           :class="{ 'is-selected': form.reason === r.id }"
           @click="form.reason = r.id; next()"
         >
@@ -222,7 +242,7 @@ onMounted(() => {
           v-for="t in slots"
           :key="t"
           type="button"
-          class="slot"
+          class="slot card card--tap"
           :class="{ 'is-selected': form.time === t }"
           @click="form.time = t"
         >
@@ -232,16 +252,16 @@ onMounted(() => {
 
       <div v-else-if="form.date && useFallback" class="fallback">
         <p class="hint">
-          <template v-if="!backendConfigured">This demo isn't connected to live scheduling yet.</template>
-          <template v-else>Nothing open that day.</template>
-          Tell us a time of day and we'll confirm your slot by text within one business hour.
+          <template v-if="!backendConfigured">We're not taking live slots online just yet —</template>
+          <template v-else>Nothing open that day —</template>
+          tell us a time of day and we'll confirm your slot by text within one business hour.
         </p>
         <div class="tiles tiles--3">
           <button
             v-for="t in ['Morning', 'Afternoon', 'Evening']"
             :key="t"
             type="button"
-            class="tile"
+            class="tile card card--tap"
             :class="{ 'is-selected': form.timePreference === t }"
             @click="form.timePreference = t"
           >
@@ -272,7 +292,7 @@ onMounted(() => {
 
     <!-- Step: insurance (skippable) -->
     <div v-else-if="step === 'insurance'" class="step">
-      <h2 class="step__title">Insurance <span class="step__optional">(new patients only — skippable)</span></h2>
+      <h2 class="step__title">Insurance <span class="step__optional">(optional — skip if you'd rather bring your card in person)</span></h2>
       <div v-if="!form.skipInsurance" class="fields">
         <label class="field">
           <span class="field__label">Insurance carrier</span>
@@ -286,15 +306,15 @@ onMounted(() => {
 
     <!-- Step: confirm -->
     <div v-else-if="step === 'confirm'" class="step">
-      <h2 class="step__title">Confirm</h2>
-      <dl class="summary">
+      <h2 class="step__title">Review &amp; confirm</h2>
+      <dl class="summary card">
         <div class="summary__row"><dt>Patient</dt><dd>{{ form.patientType }}</dd></div>
         <div class="summary__row"><dt>Reason</dt><dd>{{ reasons.find(r => r.id === form.reason)?.label }}</dd></div>
         <div class="summary__row">
           <dt>When</dt>
           <dd>
-            <template v-if="!useFallback">{{ form.date }} at <span class="figure">{{ form.time }}</span></template>
-            <template v-else>{{ form.date || 'Flexible' }}, {{ form.timePreference || 'flexible' }} — we'll confirm the exact time</template>
+            <template v-if="!useFallback">{{ formatDate(form.date) }} at <span class="figure">{{ form.time }}</span></template>
+            <template v-else>{{ form.date ? formatDate(form.date) : 'Flexible' }}, {{ form.timePreference || 'flexible' }} — we'll confirm the exact time</template>
           </dd>
         </div>
         <div class="summary__row"><dt>Contact</dt><dd>{{ form.name }} · {{ form.phone }}</dd></div>
@@ -316,17 +336,21 @@ onMounted(() => {
       </button>
     </div>
 
-    <div class="nav" v-if="step !== 'confirm'">
-      <button v-if="stepIndex > 0" type="button" class="btn btn--secondary" @click="back">Back</button>
-      <button
-        v-if="!['patient', 'reason'].includes(step)"
-        type="button"
-        class="btn btn--primary"
-        :disabled="!canProceed"
-        @click="next"
-      >
-        Continue
-      </button>
+    <div class="nav-wrap" v-if="step !== 'confirm'">
+      <p v-if="!canProceed && continueHint" id="continue-hint" class="nav-hint" role="status">{{ continueHint }}</p>
+      <div class="nav">
+        <button v-if="stepIndex > 0" type="button" class="btn btn--secondary" @click="back">Back</button>
+        <button
+          v-if="!['patient', 'reason'].includes(step)"
+          type="button"
+          class="btn btn--primary"
+          :disabled="!canProceed"
+          :aria-describedby="!canProceed && continueHint ? 'continue-hint' : undefined"
+          @click="next"
+        >
+          Continue
+        </button>
+      </div>
     </div>
     <div class="nav" v-else>
       <button type="button" class="btn btn--secondary" @click="back">Back</button>
@@ -376,6 +400,12 @@ onMounted(() => {
   margin-left: auto;
   font-size: var(--text-caption);
   color: var(--color-ink-3);
+}
+
+.step {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .step__title {
@@ -489,6 +519,7 @@ onMounted(() => {
   display: grid;
   gap: var(--space-4);
   margin: 0 0 var(--space-6);
+  padding: var(--space-5);
 }
 
 .summary__row {
@@ -497,6 +528,11 @@ onMounted(() => {
   gap: var(--space-4);
   padding-bottom: var(--space-3);
   border-bottom: var(--border-hair);
+}
+
+.summary__row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .summary__row dt {
@@ -542,10 +578,19 @@ onMounted(() => {
   width: 100%;
 }
 
+.nav-wrap {
+  margin-top: var(--space-8);
+}
+
+.nav-hint {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  color: var(--color-ink-2);
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
   gap: var(--space-3);
-  margin-top: var(--space-8);
 }
 </style>

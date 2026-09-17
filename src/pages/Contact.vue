@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Phone, Mail } from 'lucide-vue-next'
 import { practice } from '../config/practice.js'
 import { submitLead, backendConfigured } from '../config/backend.js'
@@ -8,8 +8,15 @@ import LocationHours from '../components/LocationHours.vue'
 
 const form = ref({ name: '', email: '', phone: '', message: '', preferred: 'Phone', consent: false })
 const state = ref('idle') // idle | sending | sent | error
+const showContactError = ref(false)
+const hasContactMethod = computed(() => Boolean(form.value.email || form.value.phone))
 
 async function onSubmit() {
+  if (!form.value.email && !form.value.phone) {
+    showContactError.value = true
+    return
+  }
+  showContactError.value = false
   state.value = 'sending'
   const result = await submitLead({
     source: 'contact form',
@@ -33,15 +40,15 @@ onMounted(() => {
       <h1 class="contact__title">Contact us</h1>
 
       <div class="cards">
-        <a class="card" :href="practice.phoneHref">
+        <a class="contact-card" :href="practice.phoneHref">
           <Phone :size="20" :stroke-width="1.75" aria-hidden="true" />
           <span class="figure">{{ practice.phoneDisplay }}</span>
         </a>
-        <a class="card" :href="`mailto:${practice.email}`">
+        <a class="contact-card" :href="`mailto:${practice.email}`">
           <Mail :size="20" :stroke-width="1.75" aria-hidden="true" />
           {{ practice.email }}
         </a>
-        <a class="card" :href="practice.mapUrl" target="_blank" rel="noopener">
+        <a class="contact-card" :href="practice.mapUrl" target="_blank" rel="noopener">
           {{ practice.address }}
         </a>
       </div>
@@ -69,6 +76,9 @@ onMounted(() => {
           <span class="field__label">Phone</span>
           <input v-model="form.phone" type="tel" class="field__input" autocomplete="tel" />
         </label>
+        <p v-if="showContactError && !hasContactMethod" class="error" role="alert">
+          Add an email or phone number so we can reach you back.
+        </p>
         <fieldset class="field field--radio">
           <legend class="field__label">Preferred contact method</legend>
           <label v-for="opt in ['Phone', 'Email', 'Text']" :key="opt" class="radio">
@@ -93,7 +103,10 @@ onMounted(() => {
       </form>
 
       <div v-else class="sent">
-        <p>Thanks, {{ form.name }} — we'll be in touch by {{ form.preferred.toLowerCase() }}.</p>
+        <p v-if="(form.preferred === 'Email' && form.email) || (form.preferred !== 'Email' && form.phone)">
+          Thanks, {{ form.name }} — we'll be in touch by {{ form.preferred.toLowerCase() }}.
+        </p>
+        <p v-else>Thanks, {{ form.name }} — we'll be in touch using the contact info you gave us.</p>
         <p v-if="!backendConfigured" class="sent__demo">
           Demo mode: this site isn't connected to a live inbox yet. See <code>google-apps-script/README.md</code>.
         </p>
@@ -119,7 +132,7 @@ onMounted(() => {
   margin-top: var(--space-8);
 }
 
-.card {
+.contact-card {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -131,7 +144,7 @@ onMounted(() => {
   font-size: var(--text-body);
 }
 
-.card:hover {
+.contact-card:hover {
   background: var(--color-sunk);
 }
 

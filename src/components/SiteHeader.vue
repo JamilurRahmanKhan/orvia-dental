@@ -223,6 +223,13 @@ onUnmounted(() => {
   z-index: var(--z-header);
   background: var(--color-paper);
   border-bottom: var(--border-hair);
+  box-shadow: 0 0 0 rgb(27 31 29 / 0);
+  transition: box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+.header--compact {
+  border-bottom-color: transparent;
+  box-shadow: var(--shadow-sm);
 }
 
 .header__inner {

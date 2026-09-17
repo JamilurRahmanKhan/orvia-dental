@@ -10,8 +10,7 @@ import { practice } from '../config/practice.js'
         <h2 id="why-title" class="why__title">No surprises, on purpose.</h2>
 
         <div class="why__grid">
-          <div v-for="(p, i) in practice.promises" :key="p.text" class="why__item">
-            <span class="why__marker figure">{{ String(i + 1).padStart(2, '0') }}</span>
+          <div v-for="p in practice.promises" :key="p.text" class="why__item">
             <p class="why__statement">{{ p.text }}</p>
             <a class="link-arrow why__proof" :href="p.href">
               {{ p.proof }}
@@ -54,14 +53,6 @@ import { practice } from '../config/practice.js'
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding-top: var(--space-5);
-  border-top: var(--border-hair);
-}
-
-.why__marker {
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
-  color: var(--color-ink-3);
 }
 
 .why__statement {

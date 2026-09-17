@@ -7,7 +7,7 @@ import { practice } from '../config/practice.js'
   <section id="reviews" class="reviews" aria-labelledby="reviews-title">
     <div class="container reviews__grid">
       <div class="reviews__score">
-        <h2 id="reviews-title" class="visually-hidden">Reviews</h2>
+        <h2 id="reviews-title" class="visually-hidden">Patient reviews</h2>
         <p class="reviews__figure figure">{{ practice.rating }}</p>
         <p class="reviews__stars" aria-hidden="true">
           <Star v-for="n in 5" :key="n" :size="16" fill="currentColor" :stroke-width="0" />
@@ -84,7 +84,9 @@ import { practice } from '../config/practice.js'
   color: var(--color-ink-3);
 }
 
-/* ---- Quotes: no cards ---- */
+/* ---- Quotes: plain text column, no cards — a spare ledger reads more distinctive
+   than a testimonial-card kit, and keeps this section visually different from the
+   card-based sections around it. ---- */
 .reviews__list {
   display: grid;
   gap: var(--space-10);

@@ -13,12 +13,12 @@ const member = computed(() => practice.team.find((t) => t.slug === route.params.
 // per role so we never over-claim what someone actually does.
 const bios = {
   'amara-cole': {
-    bio: "Dr. Cole has spent twelve years in general and cosmetic dentistry, and she still starts every new-patient visit the same way: with a conversation, not a drill. She wants to know what's actually worrying you — a chipped tooth you've been hiding in photos, a filling that's overdue, a checkup you've been putting off — before she looks at a single X-ray. Patients describe her as unhurried and plainspoken; she'll tell you what a treatment costs and what it involves before you're in the chair, and she means it when she says a second opinion is always welcome. Dr. Cole sees Spanish-speaking patients and their families without needing an interpreter in the room, which matters for the number of long-time Orvia patients who found her that way. Outside the practice, she's usually the one asking after your kids by name at the next visit.",
+    bio: "Dr. Cole has spent twelve years in general and cosmetic dentistry, and she still starts every new-patient visit the same way: with a conversation, not a drill. She wants to know what's actually worrying you — a chipped tooth you've been hiding in photos, a filling that's overdue, a checkup you've been putting off — before she looks at a single X-ray. Patients describe her as unhurried and plainspoken. She'll tell you what a treatment costs and what it involves before you're in the chair, and she means it when she says a second opinion is always welcome. Dr. Cole sees Spanish-speaking patients and their families without needing an interpreter in the room, which matters to the long-time Orvia patients who found her that way. Outside the practice, she's usually the one asking after your kids by name at the next visit.",
     languages: ['English', 'Spanish'],
     treatmentSlugs: ['general-dentistry', 'veneers', 'teeth-whitening'],
   },
   'marcus-reyes': {
-    bio: "Dr. Reyes focuses on restorative and implant work — the appointments people tend to research for weeks beforehand. He built his approach around one habit: pulling up your X-ray on the screen and walking through it in plain English, pointing at exactly what he's talking about instead of reciting terms. If you're weighing an implant, a root canal, or a crown, he'll lay out the visits, the timeline, and the written estimate before any of it is scheduled, so there's nothing sprung on you mid-treatment. Patients who've put off bigger work for years say he's the reason they finally went ahead with it. When he's not in the operatory, he's usually logging miles on the Barton Creek Greenbelt trails, which he says teaches the same patience he brings to a multi-visit implant case.",
+    bio: "Dr. Reyes focuses on restorative and implant work — the appointments people tend to research for weeks beforehand. He built his approach around one habit: pulling up your X-ray on the screen and walking through it in plain English, pointing at exactly what he's talking about instead of reciting terms. If you're weighing an implant, a root canal, or a crown, he'll lay out the visits, the timeline, and the written estimate first. Nothing gets scheduled, and nothing gets sprung on you mid-treatment. Patients who've put off bigger work for years say he's the reason they finally went ahead with it. When he's not in the operatory, he's usually logging miles on the Barton Creek Greenbelt trails, which he says teaches the same patience he brings to a multi-visit implant case.",
     languages: ['English'],
     treatmentSlugs: ['dental-implants', 'root-canal', 'sedation-dentistry'],
   },
@@ -79,21 +79,23 @@ watchEffect(() => {
 
         <p class="member__bio">{{ bio?.bio }}</p>
 
-        <div v-if="bio?.languages?.length" class="member__block">
-          <h2 class="member__block-title">Languages spoken</h2>
-          <p class="member__block-body">{{ bio.languages.join(', ') }}</p>
-        </div>
+        <div v-if="bio?.languages?.length || treatments.length" class="member__facts card card--tap">
+          <div v-if="bio?.languages?.length" class="member__fact">
+            <h2 class="member__fact-title">Languages spoken</h2>
+            <p class="member__fact-body">{{ bio.languages.join(', ') }}</p>
+          </div>
 
-        <div v-if="treatments.length" class="member__block">
-          <h2 class="member__block-title">Treatments</h2>
-          <ul class="member__treatments">
-            <li v-for="t in treatments" :key="t.slug">
-              <a class="link-arrow" :href="`/treatments/${t.slug}/`">
-                {{ t.name }}
-                <ArrowRight :size="16" :stroke-width="1.75" aria-hidden="true" />
-              </a>
-            </li>
-          </ul>
+          <div v-if="treatments.length" class="member__fact">
+            <h2 class="member__fact-title">Treatments</h2>
+            <ul class="member__treatments">
+              <li v-for="t in treatments" :key="t.slug">
+                <a class="link-arrow" :href="`/treatments/${t.slug}/`">
+                  {{ t.name }}
+                  <ArrowRight :size="16" :stroke-width="1.75" aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <a class="btn btn--primary btn--lg member__book" :href="`/book/?provider=${member.slug}`">
@@ -179,14 +181,23 @@ watchEffect(() => {
   color: var(--color-ink-2);
 }
 
-.member__block {
+/* Credential card: languages + treatments read as one lifted panel instead of two
+   hairline-divided blocks, matching the site's card/card--tap elevation system. */
+.member__facts {
   margin-top: var(--space-8);
-  padding-top: var(--space-6);
-  border-top: var(--border-hair);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
   max-width: var(--measure-narrow);
 }
 
-.member__block-title {
+.member__fact + .member__fact {
+  padding-top: var(--space-6);
+  border-top: var(--border-hair);
+}
+
+.member__fact-title {
   font-size: var(--text-small);
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
@@ -194,7 +205,7 @@ watchEffect(() => {
   color: var(--color-ink-3);
 }
 
-.member__block-body {
+.member__fact-body {
   margin-top: var(--space-2);
   font-size: var(--text-body);
   color: var(--color-ink);

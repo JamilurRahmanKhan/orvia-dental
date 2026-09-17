@@ -18,7 +18,7 @@ function dentistFor(slug) {
       <h1 id="gallery-title" class="page-hero__title">Smile gallery</h1>
       <p class="page-hero__lede">
         Real results from Orvia patients, shown as an honest before and after — drag the slider,
-        or use the arrow keys once it's focused.
+        or tab to it and use the arrow keys.
       </p>
     </div>
   </section>
@@ -26,7 +26,7 @@ function dentistFor(slug) {
   <section class="cases" aria-label="Before and after cases">
     <div class="container">
       <ul class="cases__list">
-        <li v-for="c in practice.cases" :key="c.id" class="case">
+        <li v-for="c in practice.cases" :key="c.id" class="case card card--tap">
           <div class="case__viewer">
             <BeforeAfterSlider
               :before="c.before"
@@ -107,6 +107,7 @@ function dentistFor(slug) {
 .case {
   display: grid;
   gap: var(--space-6);
+  padding: var(--space-6);
 }
 
 .case__viewer {
@@ -178,6 +179,10 @@ function dentistFor(slug) {
 @media (min-width: 1024px) {
   .cases__list {
     gap: var(--space-24);
+  }
+
+  .case {
+    padding: var(--space-8);
   }
 }
 </style>

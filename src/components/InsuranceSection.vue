@@ -26,7 +26,7 @@ const activeOptionId = computed(() =>
 )
 
 function statusFor(plan) {
-  return plan.network === 'in' ? 'In network' : "Out of network — we'll file for you"
+  return plan.network === 'in' ? 'In network — we bill them directly' : "Out of network — we'll file the claim for you"
 }
 
 function onInput() {
@@ -72,7 +72,7 @@ function selectPlan(plan) {
       <div class="insurance__tool">
         <h2 id="insurance-title" class="insurance__title">Do you take my plan?</h2>
         <p class="insurance__lede">
-          Search the plans we bill directly. Not on the list? We'll still check for you.
+          Type your insurance plan below to see if we accept it. Not listed? We'll still check for you.
         </p>
 
         <div class="finder">
@@ -137,7 +137,7 @@ function selectPlan(plan) {
           </p>
         </div>
 
-        <a class="ledger-row" :href="practice.membership.href">
+        <a class="ledger-row card card--tap" :href="practice.membership.href">
           <span class="ledger-row__name">{{ practice.membership.label }}</span>
           <span class="ledger-row__leader" aria-hidden="true"></span>
           <span class="ledger-row__figure figure">{{ practice.membership.price }}</span>
@@ -301,6 +301,7 @@ function selectPlan(plan) {
   background: var(--color-slip);
   border-radius: var(--radius-control);
   border: var(--border-hair);
+  box-shadow: var(--shadow-xs);
   font-size: var(--text-small);
   color: var(--color-ink-2);
 }
@@ -312,26 +313,20 @@ function selectPlan(plan) {
   gap: var(--space-4);
 }
 
-/* ---- Membership ledger row ---- */
+/* ---- Membership CTA: a card so it reads as the one thing on the page you can
+   tap to act on, not just another line of text ---- */
 .ledger-row {
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
   margin-top: var(--space-8);
-  padding: var(--space-5) var(--space-3);
-  margin-inline: calc(-1 * var(--space-3));
-  border-top: var(--border-hair);
+  padding: var(--space-5);
   color: inherit;
   text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-out);
-}
-
-.ledger-row:hover,
-.ledger-row:focus-visible {
-  background: var(--color-sunk);
 }
 
 .ledger-row__name {
+  min-width: 0;
   font-size: var(--text-h4);
   font-weight: var(--weight-semibold);
 }
@@ -355,6 +350,24 @@ function selectPlan(plan) {
   color: var(--color-accent);
   opacity: 0;
   transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+/* The dotted ledger leader needs room to breathe; below that, drop it and let
+   the price wrap to its own right-aligned line instead of squeezing everything
+   onto one row. */
+@media (max-width: 479px) {
+  .ledger-row {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+  }
+
+  .ledger-row__leader {
+    display: none;
+  }
+
+  .ledger-row__figure {
+    margin-left: auto;
+  }
 }
 
 .ledger-row:hover .ledger-row__arrow,

@@ -30,6 +30,7 @@ onMounted(() => {
     <!-- Call block: phone is the first and largest element, above everything -->
     <section class="call-block" :class="{ 'call-block--closed': !status.open }">
       <div class="container call-block__inner">
+        <h1 class="call-block__title">Emergency dentist in Austin — same-day appointments</h1>
         <p class="call-block__status">
           <span class="dot" :class="{ 'dot--closed': !status.open }" aria-hidden="true"></span>
           {{ status.open ? "We're open now" : "We're closed right now" }}
@@ -82,12 +83,15 @@ onMounted(() => {
 
       <section class="block">
         <h2 class="block__title">Same-day availability</h2>
-        <p>We hold emergency slots every day we're open — {{ content.whatItsLike[0] }}</p>
+        <p>
+          We hold emergency slots every day we're open. Call us — we'll ask a few quick questions
+          and get you in the same day.
+        </p>
       </section>
 
       <section class="block">
         <h2 class="block__title">Cost</h2>
-        <p>An emergency exam and X-ray starts at <span class="figure">{{ practice.emergencyVisit.price }}</span>. {{ content.costFactors }} <span v-if="practice.demo">Sample price for demo.</span></p>
+        <p>An emergency exam and X-ray costs <span class="figure">{{ practice.emergencyVisit.price }}</span>. {{ content.costFactors }} <span v-if="practice.demo">Sample price for demo.</span></p>
       </section>
 
       <section class="block">
@@ -139,6 +143,13 @@ onMounted(() => {
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-3);
+}
+
+.call-block__title {
+  max-width: 20ch;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-heading);
 }
 
 .call-block__status {

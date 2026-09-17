@@ -15,6 +15,7 @@ const treatment = computed(() => practice.treatments.find((t) => t.slug === slug
 const content = computed(() => treatmentContent[slug.value])
 const found = computed(() => Boolean(treatment.value && content.value))
 const hasCostPage = computed(() => Boolean(costContent[slug.value]))
+const shortName = computed(() => treatment.value?.name.replace(/\s*\([^)]*\)/, '') || '')
 
 function firstSentence(text) {
   if (!text) return ''
@@ -101,8 +102,9 @@ watch([slug, found], updateMeta)
       </div>
     </section>
 
-    <section class="td-facts" aria-label="Quick facts">
+    <section class="td-facts" aria-labelledby="td-facts-title">
       <div class="container">
+        <p id="td-facts-title" class="td-facts__eyebrow">At a glance</p>
         <ul class="td-facts__ledger">
           <li class="fact">
             <p class="fact__label">Visits</p>
@@ -180,7 +182,7 @@ watch([slug, found], updateMeta)
 
     <section class="td-section td-section--sunk td-section--tight" aria-labelledby="td-alt-title">
       <div class="container td-section__prose">
-        <h2 id="td-alt-title" class="td-section__heading">Alternatives</h2>
+        <h2 id="td-alt-title" class="td-section__heading">Other options</h2>
         <p class="td-section__body">{{ content.alternatives }}</p>
       </div>
     </section>
@@ -194,7 +196,7 @@ watch([slug, found], updateMeta)
 
     <section class="td-section" aria-labelledby="td-faq-title">
       <div class="container td-section__prose">
-        <h2 id="td-faq-title" class="td-section__heading">Questions about {{ treatment.name.toLowerCase() }}</h2>
+        <h2 id="td-faq-title" class="td-section__heading">Questions about {{ shortName.toLowerCase() }}</h2>
         <div class="faq-list">
           <div v-for="(item, i) in content.faqs" :key="item.q" class="faq-item">
             <h3 class="faq-item__heading">
@@ -353,13 +355,25 @@ watch([slug, found], updateMeta)
   padding-block: var(--section-tight);
 }
 
+.td-facts__eyebrow {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
 .td-facts__ledger {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 0;
-  padding: 0;
+  padding: 0 var(--space-5);
   list-style: none;
-  border-block: var(--border-hair);
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
 }
 
 .fact {
@@ -390,7 +404,6 @@ watch([slug, found], updateMeta)
 @media (min-width: 768px) {
   .td-facts__ledger {
     grid-template-columns: repeat(3, 1fr);
-    border-bottom: 0;
   }
 
   .fact {
@@ -491,6 +504,7 @@ watch([slug, found], updateMeta)
   background: var(--color-slip);
   border: var(--border-hair);
   border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-xs);
 }
 
 .cost-card__row {
@@ -538,15 +552,29 @@ watch([slug, found], updateMeta)
 
 /* ---- FAQ accordion ---- */
 .faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
   margin-top: var(--space-6);
 }
 
 .faq-item {
-  border-bottom: var(--border-hair);
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
+  padding-inline: var(--space-5);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
 }
 
-.faq-item:first-child {
-  border-top: var(--border-hair);
+.faq-item:hover,
+.faq-item:focus-within {
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-rule-strong);
 }
 
 .faq-item__heading {
@@ -615,6 +643,9 @@ watch([slug, found], updateMeta)
 }
 
 .related-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
   margin: var(--space-6) 0 0;
   padding: 0;
   list-style: none;
@@ -624,21 +655,24 @@ watch([slug, found], updateMeta)
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-3);
-  margin-inline: calc(-1 * var(--space-3));
-  border-top: var(--border-hair);
+  padding: var(--space-5);
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
   color: inherit;
   text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-out);
-}
-
-.related-list li:last-child .related-row {
-  border-bottom: var(--border-hair);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
 }
 
 .related-row:hover,
 .related-row:focus-visible {
-  background: var(--color-paper);
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-rule-strong);
 }
 
 .related-row__name {

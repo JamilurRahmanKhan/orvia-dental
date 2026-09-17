@@ -16,7 +16,7 @@ const status = openStatus()
         </a>
         <p class="emergency__status">
           <span class="dot" :class="{ 'dot--closed': !status.open }" aria-hidden="true"></span>
-          {{ status.open ? "We're open now" : "We're closed — here's what to do tonight" }}
+          {{ status.open ? "We're open now" : "We're closed — here's what to do" }}
           <a v-if="!status.open" class="emergency__more" href="/emergency-dentist/">→</a>
         </p>
       </div>
@@ -26,7 +26,7 @@ const status = openStatus()
       <div class="emergency__slip">
         <p class="emergency__slip-label">Emergency visit</p>
         <p class="emergency__slip-row">
-          <span>{{ practice.emergencyVisit.label }}</span>
+          <span class="emergency__slip-name">{{ practice.emergencyVisit.label }}</span>
           <span class="emergency__slip-leader" aria-hidden="true"></span>
           <span class="figure">{{ practice.emergencyVisit.price }}</span>
         </p>
@@ -102,11 +102,16 @@ const status = openStatus()
 .emergency__slip-row {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-3);
   padding-bottom: var(--space-4);
   border-bottom: var(--border-hair);
   font-size: var(--text-body);
+}
+
+.emergency__slip-name {
+  min-width: 0;
 }
 
 .emergency__slip-leader {

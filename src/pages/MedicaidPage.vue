@@ -42,7 +42,7 @@ onMounted(() => {
       <div class="container">
         <h2 id="coverage-title" class="coverage__title">What's typically covered</h2>
         <div class="coverage__grid">
-          <div class="coverage__item">
+          <div class="coverage__item card">
             <p class="coverage__statement">Children under 21</p>
             <p class="coverage__body">
               Texas Medicaid covers dental care for children under 21, including checkups,
@@ -50,7 +50,7 @@ onMounted(() => {
               way for families whose income is a little above the Medicaid line.
             </p>
           </div>
-          <div class="coverage__item">
+          <div class="coverage__item card">
             <p class="coverage__statement">Adults</p>
             <p class="coverage__body">
               Adult coverage under Texas Medicaid is limited — mainly emergency care and some
@@ -180,8 +180,12 @@ onMounted(() => {
 
 .coverage__grid {
   display: grid;
-  gap: var(--space-10);
+  gap: var(--space-6);
   margin-top: var(--space-10);
+}
+
+.coverage__item {
+  padding: var(--space-6);
 }
 
 .coverage__statement {

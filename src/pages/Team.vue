@@ -33,7 +33,7 @@ function bookLabel(member) {
   <section class="team-page" aria-label="Team members">
     <div class="container">
       <ul class="team-page__grid">
-        <li v-for="m in practice.team" :key="m.slug" class="team-page__card">
+        <li v-for="m in practice.team" :key="m.slug" class="team-page__card card card--tap">
           <a class="team-page__link" :href="`/about/team/${m.slug}/`">
             <img
               class="team-page__photo"
@@ -117,6 +117,7 @@ function bookLabel(member) {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding: var(--space-5);
 }
 
 .team-page__link {

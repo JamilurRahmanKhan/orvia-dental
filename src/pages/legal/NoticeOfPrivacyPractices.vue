@@ -13,89 +13,103 @@ document.title = 'Notice of Privacy Practices | Orvia Dental'
   </section>
 
   <section class="legal" aria-label="Notice of Privacy Practices details">
-    <div class="container legal__wrap">
-      <div class="legal__body">
-        <p class="legal__intro">
-          This notice describes how medical information about you may be used and disclosed, and
-          how you can get access to it. Please review it carefully. This notice applies to the
-          treatment records created at {{ practice.name }} — for how our <em>website</em> handles
-          information, see our <a class="legal__link" href="/privacy-policy/">privacy policy</a>
-          instead.
-        </p>
-
-        <h2>How we may use and disclose your health information</h2>
-        <p>
-          Federal law (HIPAA) allows us to use and share your health information for:
-        </p>
-        <ul>
-          <li>
-            <strong>Treatment</strong> — coordinating your care among our dentists, hygienists, and
-            any specialist we refer you to.
-          </li>
-          <li>
-            <strong>Payment</strong> — billing you or your insurance plan, verifying coverage
-            before your visit, and collecting payment for services.
-          </li>
-          <li>
-            <strong>Healthcare operations</strong> — quality review, staff training, and the
-            day-to-day administration of the practice.
-          </li>
+    <div class="container legal__grid">
+      <nav class="legal__nav" aria-label="On this page">
+        <p class="legal__nav-label">On this page</p>
+        <ul class="legal__nav-list">
+          <li><a class="legal__nav-link" href="#how-we-use-your-records">How we use your dental records</a></li>
+          <li><a class="legal__nav-link" href="#your-rights">Your rights</a></li>
+          <li><a class="legal__nav-link" href="#our-duties">Our duties</a></li>
+          <li><a class="legal__nav-link" href="#nondiscrimination">Notice of nondiscrimination</a></li>
+          <li><a class="legal__nav-link" href="#language-assistance">Language assistance</a></li>
+          <li><a class="legal__nav-link" href="#changes">Changes to this notice</a></li>
         </ul>
-        <p>
-          We may also share limited information as required by law, for public health reporting,
-          or to send appointment reminders — reminder texts and calls are limited to your
-          appointment details and require your consent, which you can withdraw at any time.
-        </p>
+      </nav>
 
-        <h2>Your rights</h2>
-        <ul>
-          <li><strong>Access.</strong> You can ask to see or get a copy of your dental records.</li>
-          <li><strong>Amendment.</strong> You can ask us to correct information you believe is wrong or incomplete.</li>
-          <li><strong>Restriction.</strong> You can ask us to limit what we share, though we aren't always required to agree.</li>
-          <li><strong>Confidential communication.</strong> You can ask us to contact you in a specific way or at a different address.</li>
-          <li><strong>Paper copy.</strong> You can ask for a paper copy of this notice at any time, even if you agreed to receive it electronically.</li>
-          <li>
-            <strong>File a complaint.</strong> You can file a complaint with us or with the
-            U.S. Department of Health and Human Services, Office for Civil Rights, if you believe
-            your privacy rights were violated. We will not retaliate against you for filing one.
-          </li>
-        </ul>
+      <div class="legal__content">
+        <div class="legal__body">
+          <p class="legal__intro">
+            This notice describes how medical information about you may be used and disclosed, and
+            how you can get access to it. Please review it carefully. This notice applies to the
+            treatment records created at {{ practice.name }} — for how our <em>website</em> handles
+            information, see our <a class="legal__link" href="/privacy-policy/">privacy policy</a>
+            instead.
+          </p>
 
-        <h2>Our duties</h2>
-        <p>
-          We're required by law to keep your health information private, give you this notice of
-          our legal duties and privacy practices, and follow the terms currently in effect.
-        </p>
+          <h2 id="how-we-use-your-records">How we may use and disclose your health information</h2>
+          <p>
+            Federal law (HIPAA) allows us to use and share your health information for:
+          </p>
+          <ul>
+            <li>
+              <strong>Treatment</strong> — coordinating your care among our dentists, hygienists, and
+              any specialist we refer you to.
+            </li>
+            <li>
+              <strong>Payment</strong> — billing you or your insurance plan, verifying coverage
+              before your visit, and collecting payment for services.
+            </li>
+            <li>
+              <strong>Healthcare operations</strong> — quality review, staff training, and the
+              day-to-day administration of the practice.
+            </li>
+          </ul>
+          <p>
+            We may also share limited information as required by law, for public health reporting,
+            or to send appointment reminders — reminder texts and calls are limited to your
+            appointment details and require your consent, which you can withdraw at any time.
+          </p>
 
-        <h2>Notice of nondiscrimination</h2>
-        <p>
-          {{ practice.name }} complies with applicable federal civil rights laws and does not
-          discriminate on the basis of race, color, national origin, age, disability, or sex.
-          We do not exclude people or treat them differently because of these characteristics.
-        </p>
+          <h2 id="your-rights">Your rights</h2>
+          <ul>
+            <li><strong>Access.</strong> You can ask to see or get a copy of your dental records.</li>
+            <li><strong>Amendment.</strong> You can ask us to correct information you believe is wrong or incomplete.</li>
+            <li><strong>Restriction.</strong> You can ask us to limit what we share, though we aren't always required to agree.</li>
+            <li><strong>Confidential communication.</strong> You can ask us to contact you in a specific way or at a different address.</li>
+            <li><strong>Paper copy.</strong> You can ask for a paper copy of this notice at any time, even if you agreed to receive it electronically.</li>
+            <li>
+              <strong>File a complaint.</strong> You can file a complaint with us or with the
+              U.S. Department of Health and Human Services, Office for Civil Rights, if you believe
+              your privacy rights were violated. We will not retaliate against you for filing one.
+            </li>
+          </ul>
 
-        <h2>Language assistance and auxiliary aids</h2>
-        <p>
-          If you need help understanding this notice, or have trouble reading, hearing, or
-          speaking English, we provide language assistance services and auxiliary aids free of
-          charge. Our team includes Spanish-speaking staff, and we can arrange other language
-          assistance or aids for people with disabilities on request — just let us know when you
-          call or book.
-        </p>
+          <h2 id="our-duties">Our duties</h2>
+          <p>
+            We're required by law to keep your health information private, give you this notice of
+            our legal duties and privacy practices, and follow the terms currently in effect.
+          </p>
 
-        <h2>Changes to this notice</h2>
-        <p>
-          We reserve the right to change this notice and to make the revised notice apply to
-          health information we already have. A current copy will always be available on this
-          page and at the front desk.
+          <h2 id="nondiscrimination">Notice of nondiscrimination</h2>
+          <p>
+            {{ practice.name }} complies with applicable federal civil rights laws and does not
+            discriminate on the basis of race, color, national origin, age, disability, or sex.
+            We do not exclude people or treat them differently because of these characteristics.
+          </p>
+
+          <h2 id="language-assistance">Language assistance and auxiliary aids</h2>
+          <p>
+            If you need help understanding this notice, or have trouble reading, hearing, or
+            speaking English, we provide language assistance services and auxiliary aids free of
+            charge. Our team includes Spanish-speaking staff, and we can arrange other language
+            assistance or aids for people with disabilities on request — just let us know when you
+            call or book.
+          </p>
+
+          <h2 id="changes">Changes to this notice</h2>
+          <p>
+            We reserve the right to change this notice and to make the revised notice apply to
+            health information we already have. A current copy will always be available on this
+            page and at the front desk.
+          </p>
+        </div>
+
+        <p class="legal__closing">
+          Questions about your privacy rights? Call
+          <a class="figure legal__phone" :href="practice.phoneHref">{{ practice.phoneDisplay }}</a>
+          or visit our <a class="legal__link" href="/contact/">contact page</a>.
         </p>
       </div>
-
-      <p class="legal__closing">
-        Questions about your privacy rights? Call
-        <a class="figure legal__phone" :href="practice.phoneHref">{{ practice.phoneDisplay }}</a>
-        or visit our <a class="legal__link" href="/contact/">contact page</a>.
-      </p>
     </div>
   </section>
 </template>
@@ -125,9 +139,50 @@ document.title = 'Notice of Privacy Practices | Orvia Dental'
   padding-bottom: var(--section-open);
 }
 
-.legal__wrap {
-  max-width: var(--measure);
+.legal__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
   margin-inline: 0;
+}
+
+/* ---- On-page nav (same pattern as the FAQ jump nav) ---- */
+.legal__nav-label {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-ink-3);
+}
+
+.legal__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal__nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule-strong);
+  text-underline-offset: 3px;
+}
+
+.legal__nav-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.legal__content {
+  max-width: var(--measure);
 }
 
 .legal__intro {
@@ -190,5 +245,28 @@ document.title = 'Notice of Privacy Practices | Orvia Dental'
 .legal__phone {
   color: var(--color-ink);
   font-weight: var(--weight-medium);
+}
+
+@media (min-width: 1024px) {
+  .legal__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  .legal__nav {
+    grid-column: 1 / span 3;
+    position: sticky;
+    top: calc(64px + var(--space-8));
+  }
+
+  .legal__nav-list {
+    flex-direction: column;
+  }
+
+  .legal__content {
+    grid-column: 5 / -1;
+  }
 }
 </style>

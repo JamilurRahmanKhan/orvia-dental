@@ -52,13 +52,17 @@ const credentialCaption = credentialRest.join(' ') || practice.credential
   padding-block: var(--section-tight);
 }
 
+/* This stays one continuous ruled line, not a card grid — the whole strip lifts
+   off the paper ground as a single slip instead of four separate boxes. */
 .trust__ledger {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin: 0;
   padding: 0;
   list-style: none;
+  background: var(--color-slip);
   border-block: var(--border-hair);
+  box-shadow: var(--shadow-xs);
 }
 
 .cell {
@@ -100,8 +104,16 @@ const credentialCaption = credentialRest.join(' ') || practice.credential
 .cell__link {
   display: block;
   min-height: var(--tap-min);
+  margin: calc(-1 * var(--space-2));
+  padding: var(--space-2);
   color: inherit;
   text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.cell__link:hover,
+.cell__link:focus-visible {
+  background: var(--color-sunk);
 }
 
 .cell__caption--link {

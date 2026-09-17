@@ -175,6 +175,11 @@ watch(cost, updateMeta)
 .tc-table-wrap {
   margin-top: var(--space-6);
   overflow-x: auto;
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
+  padding: var(--space-2) var(--space-5);
 }
 
 .tc-table {

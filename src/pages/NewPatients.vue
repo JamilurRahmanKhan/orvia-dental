@@ -7,7 +7,7 @@ import { practice } from '../config/practice.js'
 const timeline = [
   {
     name: 'Arrival & paperwork',
-    body: "Get there a few minutes early. New patient forms take about five minutes, or fill them out online first if you'd rather.",
+    body: 'Get there a few minutes early — new patient forms take about five minutes.',
   },
   {
     name: 'X-rays',
@@ -38,10 +38,6 @@ onMounted(() => {
       <div class="container intro__inner">
         <h1 id="new-patients-title" class="intro__title">Your first visit, start to finish.</h1>
         <p class="intro__lede">{{ practice.welcomeBack.text }}</p>
-        <p class="intro__lede2">
-          We'll start with a conversation, not a drill. Here's exactly what to expect, so nothing
-          about the visit is a surprise.
-        </p>
       </div>
     </section>
 
@@ -54,8 +50,8 @@ onMounted(() => {
           <span class="ledger-row__figure figure">{{ practice.firstVisit.price }}</span>
         </a>
         <p class="offer__meta">
-          <span class="figure">{{ practice.firstVisit.duration }}</span> · insured? We check your
-          plan first.
+          About <span class="figure">{{ practice.firstVisit.duration }}</span>. Insured? We'll
+          check your plan before you arrive.
         </p>
       </div>
     </section>
@@ -79,7 +75,7 @@ onMounted(() => {
       <div class="container">
         <h2 id="practical-title" class="visually-hidden">Practical details</h2>
         <div class="practical__grid">
-          <div class="practical__item">
+          <div class="practical__item card">
             <p class="practical__term">What to bring</p>
             <ul class="practical__list">
               <li>A photo ID</li>
@@ -87,7 +83,7 @@ onMounted(() => {
               <li>A list of any medications you're taking</li>
             </ul>
           </div>
-          <div class="practical__item">
+          <div class="practical__item card">
             <p class="practical__term">Parking &amp; finding us</p>
             <p class="practical__body">
               Free parking and step-free entry are steps from the door.
@@ -97,7 +93,7 @@ onMounted(() => {
               </a>
             </p>
           </div>
-          <div class="practical__item">
+          <div class="practical__item card">
             <p class="practical__term">Insurance</p>
             <p class="practical__body">
               Not sure what's covered?
@@ -172,14 +168,6 @@ onMounted(() => {
   font-weight: var(--weight-medium);
   line-height: 1.5;
   color: var(--color-ink);
-}
-
-.intro__lede2 {
-  margin-top: var(--space-3);
-  max-width: var(--measure-narrow);
-  font-size: var(--text-body);
-  line-height: var(--leading-body);
-  color: var(--color-ink-2);
 }
 
 /* ---- Offer ---- */
@@ -305,7 +293,11 @@ onMounted(() => {
 
 .practical__grid {
   display: grid;
-  gap: var(--space-10);
+  gap: var(--space-6);
+}
+
+.practical__item {
+  padding: var(--space-6) var(--space-5);
 }
 
 .practical__term {

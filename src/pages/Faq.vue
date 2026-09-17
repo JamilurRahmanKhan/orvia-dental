@@ -14,7 +14,7 @@ const groups = [
     items: [
       {
         q: 'What if I need to reschedule?',
-        a: 'Call or use the online booking link as soon as you know — there’s no fee for rescheduling with reasonable notice. If it’s a same-day cancellation, we may ask you to rebook within the week so we can offer that slot to someone in pain.',
+        a: 'Call us or use the online booking link as soon as your plans change. There’s no fee if you give us reasonable notice. If you need to cancel the same day, we may ask you to rebook within the week — that way we can offer your slot to someone who’s in pain.',
       },
       {
         q: 'How far in advance should I book a routine cleaning?',
@@ -49,7 +49,7 @@ const groups = [
       },
       {
         q: 'How long does a dental implant take from start to finish?',
-        a: 'Most single-tooth implants take 2–3 visits spread over 3–6 months, since the bone needs time to heal around the implant before the crown goes on top. We’ll map out the full timeline at your consult.',
+        a: 'Most single-tooth implants take 2–3 visits over 3–6 months. That gap is healing time — the bone needs a few months to fuse around the implant before we attach the crown on top. We’ll map out the full timeline at your consult.',
       },
     ],
   },
@@ -86,7 +86,7 @@ const groups = [
       },
       {
         q: 'At what age should my child’s first dental visit be?',
-        a: 'By age one, or within six months of their first tooth coming in, per the American Academy of Pediatric Dentistry. First visits here are short and mostly about getting comfortable in the chair.',
+        a: 'Around their first birthday, or within six months of their first tooth coming in — that’s the guideline from the American Academy of Pediatric Dentistry. First visits here are short and mostly about getting comfortable in the chair.',
       },
     ],
   },
@@ -164,7 +164,12 @@ onUnmounted(() => {
         >
           <h2 :id="`${g.id}-title`" class="faqpage__theme-title">{{ g.title }}</h2>
           <div class="faqpage__list">
-            <div v-for="(item, i) in g.items" :key="item.q" class="faqpage__item">
+            <div
+              v-for="(item, i) in g.items"
+              :key="item.q"
+              class="faqpage__item"
+              :class="{ 'faqpage__item--open': openSet.has(`${g.id}-${i}`) }"
+            >
               <h3 class="faqpage__item-heading">
                 <button
                   :id="`faq-trigger-${g.id}-${i}`"
@@ -294,12 +299,22 @@ onUnmounted(() => {
 }
 
 .faqpage__list {
-  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-4);
 }
 
-/* ---- Accordion rows (same technique as the homepage FaqSection) ---- */
+/* ---- Accordion rows: hairline index, matching the homepage FaqSection ---- */
 .faqpage__item {
   border-bottom: var(--border-hair);
+}
+
+.faqpage__item:first-child {
+  border-top: var(--border-hair);
+}
+
+.faqpage__item--open {
+  background: var(--color-sunk);
 }
 
 .faqpage__item-heading {

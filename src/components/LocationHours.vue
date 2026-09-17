@@ -25,7 +25,12 @@ const rows = practice.hours.map((h, i) => ({
         <table class="board">
           <caption class="visually-hidden">Weekly hours, {{ practice.name }}</caption>
           <tbody>
-            <tr v-for="row in rows" :key="row.day" class="board__row" :class="{ 'board__row--today': row.isToday }">
+            <tr
+              v-for="row in rows"
+              :key="row.day"
+              class="board__row"
+              :class="{ 'board__row--today': row.isToday, 'board__row--today-closed': row.isToday && !status.open }"
+            >
               <th scope="row" class="board__day">{{ row.day }}</th>
               <td class="board__time figure">
                 <span v-if="row.isToday" class="board__flag">
@@ -143,6 +148,10 @@ const rows = practice.hours.map((h, i) => ({
   background: var(--color-accent-tint);
 }
 
+.board__row--today-closed {
+  background: var(--color-sunk);
+}
+
 .board__row--today .board__day,
 .board__row--today .board__time {
   padding-inline: var(--space-3);
@@ -193,8 +202,22 @@ const rows = practice.hours.map((h, i) => ({
   aspect-ratio: 3 / 2;
   background: var(--color-slip);
   border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-xs);
   text-decoration: none;
   color: inherit;
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.map-panel:hover,
+.map-panel:focus-visible {
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-rule-strong);
 }
 
 .map-panel__img {
@@ -213,6 +236,19 @@ const rows = practice.hours.map((h, i) => ({
   padding: var(--space-8);
   color: var(--color-ink-2);
   text-align: center;
+  background-image:
+    linear-gradient(var(--color-rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-rule) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: center;
+}
+
+.map-panel__placeholder svg {
+  padding: var(--space-2);
+  border-radius: var(--radius-round);
+  background: var(--color-slip);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-accent);
 }
 
 .map-panel__address {

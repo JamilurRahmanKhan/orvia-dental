@@ -75,10 +75,9 @@ onMounted(() => {
           </li>
         </ol>
 
-        <a class="ledger-row" href="/book/">
-          <span class="ledger-row__name">Adult membership plan</span>
-          <span class="ledger-row__leader" aria-hidden="true"></span>
-          <span class="ledger-row__figure figure">{{ practice.membership.price }}</span>
+        <a class="plan-card card card--tap" href="/book/">
+          <span class="plan-card__name">Adult membership plan</span>
+          <span class="plan-card__figure figure">{{ practice.membership.price }}</span>
         </a>
         <p v-if="practice.demo" class="how__caption">Sample price for demo.</p>
       </div>
@@ -239,39 +238,25 @@ onMounted(() => {
   color: var(--color-ink-2);
 }
 
-.ledger-row {
+.plan-card {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
+  justify-content: space-between;
   gap: var(--space-3);
-  margin-top: var(--space-4);
-  padding: var(--space-5) var(--space-3);
-  margin-inline: calc(-1 * var(--space-3));
-  max-width: calc(60ch + 2 * var(--space-3));
-  border-top: var(--border-hair);
-  border-bottom: var(--border-hair);
+  margin-top: var(--space-6);
+  padding: var(--space-6) var(--space-5);
+  max-width: 60ch;
   color: inherit;
   text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-out);
 }
 
-.ledger-row:hover,
-.ledger-row:focus-visible {
-  background: var(--color-paper);
-}
-
-.ledger-row__name {
+.plan-card__name {
   font-size: var(--text-h4);
   font-weight: var(--weight-semibold);
 }
 
-.ledger-row__leader {
-  flex: 1;
-  min-width: var(--space-6);
-  border-bottom: var(--border-leader);
-  transform: translateY(-4px);
-}
-
-.ledger-row__figure {
+.plan-card__figure {
   font-size: var(--text-figure-xl);
   font-weight: var(--weight-medium);
   color: var(--color-ink);
@@ -458,18 +443,13 @@ onMounted(() => {
   }
 }
 
-/* Ledger row: drop the leader and stack name/figure when space is tight */
+/* Plan card: keep name and price wrapping cleanly when space is tight */
 @media (max-width: 479px) {
-  .ledger-row {
-    flex-wrap: wrap;
+  .plan-card {
     row-gap: var(--space-1);
   }
 
-  .ledger-row__leader {
-    display: none;
-  }
-
-  .ledger-row__figure {
+  .plan-card__figure {
     margin-left: auto;
   }
 }

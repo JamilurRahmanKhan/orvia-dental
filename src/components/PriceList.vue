@@ -73,6 +73,26 @@ import { practice } from '../config/practice.js'
   margin-top: var(--space-4);
 }
 
+/* Elevation for the slip's treatment rows: EstimateSlip owns the markup, so the
+   card language (resting shadow-xs, hover/focus lift to shadow-md) is applied
+   here via :deep() rather than editing that shared component. */
+.prices__slip :deep(.row--link) {
+  position: relative;
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.prices__slip :deep(.row--link:hover),
+.prices__slip :deep(.row--link:focus-visible) {
+  z-index: 1;
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
+}
+
 @media (min-width: 1024px) {
   .prices__still {
     display: block;

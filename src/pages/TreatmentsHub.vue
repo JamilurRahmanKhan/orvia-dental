@@ -10,7 +10,7 @@ import { practice } from '../config/practice.js'
     <div class="container hub-intro__inner">
       <h1 id="hub-title" class="hub-intro__title">Every treatment we offer, and what it costs.</h1>
       <p class="hub-intro__lede">
-        Ranges, not surprises. Toggle for your insurance, or tap any row below for what it's
+        Ranges, not surprises. Switch to the insured view, or open any row below for what it's
         like, how long it takes, and what changes the price.
       </p>
     </div>
@@ -110,5 +110,25 @@ import { practice } from '../config/practice.js'
   .hub-list__slip {
     grid-column: 5 / -1;
   }
+}
+
+/* Elevation for the slip's treatment rows: EstimateSlip owns the markup, so the
+   card language (resting shadow-xs, hover/focus lift to shadow-md) is applied
+   here via :deep() rather than editing that shared component. */
+.hub-list__slip :deep(.row--link) {
+  position: relative;
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.hub-list__slip :deep(.row--link:hover),
+.hub-list__slip :deep(.row--link:focus-visible) {
+  z-index: 1;
+  transform: translateY(var(--lift-hover));
+  box-shadow: var(--shadow-md);
 }
 </style>
