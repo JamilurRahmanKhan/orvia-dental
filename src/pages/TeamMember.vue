@@ -77,30 +77,36 @@ watchEffect(() => {
 
         <p v-if="practice.demo" class="member__demo-note">Sample team member for demo.</p>
 
-        <p class="member__bio">{{ bio?.bio }}</p>
+        <div class="member__body">
+          <p class="member__bio">{{ bio?.bio }}</p>
 
-        <div v-if="bio?.languages?.length || treatments.length" class="member__facts card card--tap">
-          <div v-if="bio?.languages?.length" class="member__fact">
-            <h2 class="member__fact-title">Languages spoken</h2>
-            <p class="member__fact-body">{{ bio.languages.join(', ') }}</p>
+          <div v-if="bio?.languages?.length || treatments.length" class="member__facts card card--tap">
+            <div v-if="bio?.languages?.length" class="member__fact">
+              <h2 class="member__fact-title">Languages spoken</h2>
+              <p class="member__fact-body">{{ bio.languages.join(', ') }}</p>
+            </div>
+
+            <div v-if="treatments.length" class="member__fact">
+              <h2 class="member__fact-title">Treatments</h2>
+              <ul class="member__treatments">
+                <li v-for="t in treatments" :key="t.slug">
+                  <a class="link-arrow" :href="`/treatments/${t.slug}/`">
+                    {{ t.name }}
+                    <ArrowRight :size="16" :stroke-width="1.75" aria-hidden="true" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <a class="btn btn--primary member__book" :href="`/book/?provider=${member.slug}`">
+              Book with {{ bookLabel(member) }}
+            </a>
           </div>
 
-          <div v-if="treatments.length" class="member__fact">
-            <h2 class="member__fact-title">Treatments</h2>
-            <ul class="member__treatments">
-              <li v-for="t in treatments" :key="t.slug">
-                <a class="link-arrow" :href="`/treatments/${t.slug}/`">
-                  {{ t.name }}
-                  <ArrowRight :size="16" :stroke-width="1.75" aria-hidden="true" />
-                </a>
-              </li>
-            </ul>
-          </div>
+          <a v-else class="btn btn--primary btn--lg member__book" :href="`/book/?provider=${member.slug}`">
+            Book with {{ bookLabel(member) }}
+          </a>
         </div>
-
-        <a class="btn btn--primary btn--lg member__book" :href="`/book/?provider=${member.slug}`">
-          Book with {{ bookLabel(member) }}
-        </a>
       </div>
     </div>
   </section>
@@ -173,8 +179,13 @@ watchEffect(() => {
   color: var(--color-ink-3);
 }
 
-.member__bio {
+.member__body {
   margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-8);
+}
+
+.member__bio {
   max-width: var(--measure-narrow);
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -184,12 +195,11 @@ watchEffect(() => {
 /* Credential card: languages + treatments read as one lifted panel instead of two
    hairline-divided blocks, matching the site's card/card--tap elevation system. */
 .member__facts {
-  margin-top: var(--space-8);
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  max-width: var(--measure-narrow);
+  align-self: start;
 }
 
 .member__fact + .member__fact {
@@ -225,7 +235,7 @@ watchEffect(() => {
 }
 
 .member__book {
-  margin-top: var(--space-8);
+  width: 100%;
 }
 
 .not-found {
@@ -265,6 +275,15 @@ watchEffect(() => {
   .member__content {
     grid-column: 6 / -1;
     padding-top: var(--space-2);
+  }
+
+  .member__body {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    align-items: start;
+  }
+
+  .member__bio {
+    max-width: none;
   }
 }
 </style>

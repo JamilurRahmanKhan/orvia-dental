@@ -42,44 +42,53 @@ onMounted(() => {
     </section>
 
     <section class="how" aria-labelledby="how-title">
-      <div class="container how__layout">
-        <h2 id="how-title" class="how__title">How it works</h2>
-        <ol class="how__list">
-          <li class="how__item">
-            <span class="how__num figure" aria-hidden="true">1</span>
-            <div class="how__text">
-              <p class="how__statement">Pay one annual fee</p>
-              <p class="how__body">
-                <span class="figure">{{ practice.membership.price }}</span> for adults, billed once
-                a year. No monthly charges, no contracts to sign.
-              </p>
-            </div>
-          </li>
-          <li class="how__item">
-            <span class="how__num figure" aria-hidden="true">2</span>
-            <div class="how__text">
-              <p class="how__statement">Routine care is included</p>
-              <p class="how__body">
-                Two checkups, cleanings, and a set of X-rays each year, at no extra charge.
-              </p>
-            </div>
-          </li>
-          <li class="how__item">
-            <span class="how__num figure" aria-hidden="true">3</span>
-            <div class="how__text">
-              <p class="how__statement">Everything else is discounted</p>
-              <p class="how__body">
-                Fillings, crowns, and other treatment cost 15% less than our standard cash price.
-              </p>
-            </div>
-          </li>
-        </ol>
+      <div class="container how__grid">
+        <div class="how__main">
+          <h2 id="how-title" class="how__title">How it works</h2>
+          <ol class="how__list">
+            <li class="how__item">
+              <span class="how__num figure" aria-hidden="true">1</span>
+              <div class="how__text">
+                <p class="how__statement">Pay one annual fee</p>
+                <p class="how__body">
+                  <span class="figure">{{ practice.membership.price }}</span> for adults, billed once
+                  a year. No monthly charges, no contracts to sign.
+                </p>
+              </div>
+            </li>
+            <li class="how__item">
+              <span class="how__num figure" aria-hidden="true">2</span>
+              <div class="how__text">
+                <p class="how__statement">Routine care is included</p>
+                <p class="how__body">
+                  Two checkups, cleanings, and a set of X-rays each year, at no extra charge.
+                </p>
+              </div>
+            </li>
+            <li class="how__item">
+              <span class="how__num figure" aria-hidden="true">3</span>
+              <div class="how__text">
+                <p class="how__statement">Everything else is discounted</p>
+                <p class="how__body">
+                  Fillings, crowns, and other treatment cost 15% less than our standard cash price.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
 
-        <a class="plan-card card card--tap" href="/book/">
-          <span class="plan-card__name">Adult membership plan</span>
-          <span class="plan-card__figure figure">{{ practice.membership.price }}</span>
-        </a>
-        <p v-if="practice.demo" class="how__caption">Sample price for demo.</p>
+        <aside class="how__aside">
+          <a class="plan-card card card--tap" href="/book/">
+            <span class="plan-card__eyebrow">Adult membership plan</span>
+            <span class="plan-card__figure figure">{{ practice.membership.price }}</span>
+          </a>
+          <p v-if="practice.demo" class="how__caption">Sample price for demo.</p>
+
+          <div class="stat-card">
+            <p class="stat-card__figure figure">15%</p>
+            <p class="stat-card__label">off every other treatment, all year, once you're a member</p>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -199,11 +208,15 @@ onMounted(() => {
   letter-spacing: var(--tracking-heading);
 }
 
+.how__grid {
+  display: grid;
+  gap: var(--space-10);
+}
+
 .how__list {
   margin: var(--space-10) 0 0;
   padding: 0;
   list-style: none;
-  max-width: 60ch;
 }
 
 .how__item {
@@ -238,35 +251,78 @@ onMounted(() => {
   color: var(--color-ink-2);
 }
 
+.how__aside {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
 .plan-card {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
-  padding: var(--space-6) var(--space-5);
-  max-width: 60ch;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-6);
   color: inherit;
   text-decoration: none;
 }
 
-.plan-card__name {
-  font-size: var(--text-h4);
+.plan-card__eyebrow {
+  font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
 }
 
 .plan-card__figure {
-  font-size: var(--text-figure-xl);
+  margin-top: var(--space-2);
+  font-size: var(--text-h2);
   font-weight: var(--weight-medium);
   color: var(--color-ink);
   white-space: nowrap;
 }
 
 .how__caption {
-  margin-top: var(--space-3);
+  margin-top: calc(-1 * var(--space-2));
   font-size: var(--text-caption);
   color: var(--color-ink-3);
+}
+
+.stat-card {
+  padding: var(--space-6);
+  background: var(--color-accent-tint);
+  border-radius: var(--radius-control);
+}
+
+.stat-card__figure {
+  font-size: var(--text-figure-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.stat-card__label {
+  margin-top: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .how__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    align-items: start;
+  }
+
+  .how__main {
+    grid-column: 1 / span 7;
+  }
+
+  .how__aside {
+    grid-column: 9 / -1;
+    position: sticky;
+    top: calc(var(--space-8) + 64px);
+  }
 }
 
 /* ---- Savings ---- */

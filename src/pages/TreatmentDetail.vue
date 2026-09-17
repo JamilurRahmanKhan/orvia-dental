@@ -102,130 +102,130 @@ watch([slug, found], updateMeta)
       </div>
     </section>
 
-    <section class="td-facts" aria-labelledby="td-facts-title">
-      <div class="container">
-        <p id="td-facts-title" class="td-facts__eyebrow">At a glance</p>
-        <ul class="td-facts__ledger">
-          <li class="fact">
-            <p class="fact__label">Visits</p>
-            <p class="fact__value figure">{{ content.quickFacts.visits }}</p>
-          </li>
-          <li class="fact">
-            <p class="fact__label">Recovery</p>
-            <p class="fact__value">{{ content.quickFacts.recovery }}</p>
-          </li>
-          <li class="fact">
-            <p class="fact__label">Insurance</p>
-            <p class="fact__value">{{ content.quickFacts.covers }}</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <section class="td-article">
+      <div class="container td-article__grid">
+        <div class="td-article__main">
+          <section aria-labelledby="td-what-title">
+            <h2 id="td-what-title" class="td-section__heading">What it is</h2>
+            <p class="td-section__body">{{ content.whatIsIt }}</p>
+          </section>
 
-    <section class="td-section" aria-labelledby="td-what-title">
-      <div class="container td-section__prose">
-        <h2 id="td-what-title" class="td-section__heading">What it is</h2>
-        <p class="td-section__body">{{ content.whatIsIt }}</p>
-      </div>
-    </section>
+          <section aria-labelledby="td-who-title">
+            <h2 id="td-who-title" class="td-section__heading">Who it's for</h2>
+            <ul class="plain-list">
+              <li v-for="item in content.whoItsFor" :key="item">{{ item }}</li>
+            </ul>
+          </section>
 
-    <section class="td-section td-section--tight" aria-labelledby="td-who-title">
-      <div class="container td-section__prose">
-        <h2 id="td-who-title" class="td-section__heading">Who it's for</h2>
-        <ul class="plain-list">
-          <li v-for="item in content.whoItsFor" :key="item">{{ item }}</li>
-        </ul>
-      </div>
-    </section>
+          <section aria-labelledby="td-like-title">
+            <h2 id="td-like-title" class="td-section__heading">What it's like</h2>
+            <ol class="steps">
+              <li v-for="(step, i) in content.whatItsLike" :key="step" class="steps__item">
+                <span class="steps__num figure">{{ String(i + 1).padStart(2, '0') }}</span>
+                <span class="steps__text">{{ step }}</span>
+              </li>
+            </ol>
+          </section>
 
-    <section class="td-section td-section--sunk" aria-labelledby="td-like-title">
-      <div class="container td-section__prose">
-        <h2 id="td-like-title" class="td-section__heading">What it's like</h2>
-        <ol class="steps">
-          <li v-for="(step, i) in content.whatItsLike" :key="step" class="steps__item">
-            <span class="steps__num figure">{{ String(i + 1).padStart(2, '0') }}</span>
-            <span class="steps__text">{{ step }}</span>
-          </li>
-        </ol>
-      </div>
-    </section>
+          <section aria-labelledby="td-cost-title">
+            <h2 id="td-cost-title" class="td-section__heading">Cost</h2>
+            <div class="cost-card">
+              <div class="cost-card__row">
+                <span class="cost-card__name">{{ treatment.name }}</span>
+                <span class="cost-card__leader" aria-hidden="true"></span>
+                <span class="cost-card__figure figure">{{ treatment.price }}</span>
+              </div>
+              <p class="cost-card__detail">{{ treatment.detail }}</p>
+              <p class="cost-card__factors">{{ content.costFactors }}</p>
+              <a v-if="hasCostPage" class="link-arrow" :href="`/treatments/${slug}/cost/`">
+                See the full cost breakdown
+                <ArrowRight :size="18" :stroke-width="1.75" aria-hidden="true" />
+              </a>
+            </div>
+          </section>
 
-    <section class="td-section td-section--tight" aria-labelledby="td-cost-title">
-      <div class="container td-section__prose">
-        <h2 id="td-cost-title" class="td-section__heading">Cost</h2>
-        <div class="cost-card">
-          <div class="cost-card__row">
-            <span class="cost-card__name">{{ treatment.name }}</span>
-            <span class="cost-card__leader" aria-hidden="true"></span>
-            <span class="cost-card__figure figure">{{ treatment.price }}</span>
-          </div>
-          <p class="cost-card__detail">{{ treatment.detail }}</p>
-          <p class="cost-card__factors">{{ content.costFactors }}</p>
-          <a v-if="hasCostPage" class="link-arrow" :href="`/treatments/${slug}/cost/`">
-            See the full cost breakdown
-            <ArrowRight :size="18" :stroke-width="1.75" aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-    </section>
+          <section aria-labelledby="td-insurance-title">
+            <h2 id="td-insurance-title" class="td-section__heading">Insurance</h2>
+            <p class="td-section__body">{{ treatment.insured }}.</p>
+            <a class="link-arrow" href="/insurance-and-financing/">
+              Check your plan
+              <ArrowRight :size="18" :stroke-width="1.75" aria-hidden="true" />
+            </a>
+          </section>
 
-    <section class="td-section" aria-labelledby="td-insurance-title">
-      <div class="container td-section__prose">
-        <h2 id="td-insurance-title" class="td-section__heading">Insurance</h2>
-        <p class="td-section__body">{{ treatment.insured }}.</p>
-        <a class="link-arrow" href="/insurance-and-financing/">
-          Check your plan
-          <ArrowRight :size="18" :stroke-width="1.75" aria-hidden="true" />
-        </a>
-      </div>
-    </section>
+          <section aria-labelledby="td-alt-title">
+            <h2 id="td-alt-title" class="td-section__heading">Other options</h2>
+            <p class="td-section__body">{{ content.alternatives }}</p>
+          </section>
 
-    <section class="td-section td-section--sunk td-section--tight" aria-labelledby="td-alt-title">
-      <div class="container td-section__prose">
-        <h2 id="td-alt-title" class="td-section__heading">Other options</h2>
-        <p class="td-section__body">{{ content.alternatives }}</p>
-      </div>
-    </section>
+          <section aria-labelledby="td-aftercare-title">
+            <h2 id="td-aftercare-title" class="td-section__heading">Aftercare</h2>
+            <p class="td-section__body">{{ content.aftercare }}</p>
+          </section>
 
-    <section class="td-section td-section--tight" aria-labelledby="td-aftercare-title">
-      <div class="container td-section__prose">
-        <h2 id="td-aftercare-title" class="td-section__heading">Aftercare</h2>
-        <p class="td-section__body">{{ content.aftercare }}</p>
-      </div>
-    </section>
-
-    <section class="td-section" aria-labelledby="td-faq-title">
-      <div class="container td-section__prose">
-        <h2 id="td-faq-title" class="td-section__heading">Questions about {{ shortName.toLowerCase() }}</h2>
-        <div class="faq-list">
-          <div v-for="(item, i) in content.faqs" :key="item.q" class="faq-item">
-            <h3 class="faq-item__heading">
-              <button
-                :id="`td-faq-trigger-${i}`"
-                type="button"
-                class="faq-item__trigger"
-                :aria-expanded="openSet.has(i)"
-                :aria-controls="`td-faq-panel-${i}`"
-                @click="toggleFaq(i)"
-              >
-                <span class="faq-item__q">{{ item.q }}</span>
-                <Plus v-if="!openSet.has(i)" :size="20" :stroke-width="1.75" class="faq-item__icon" aria-hidden="true" />
-                <Minus v-else :size="20" :stroke-width="1.75" class="faq-item__icon" aria-hidden="true" />
-              </button>
-            </h3>
-            <div
-              :id="`td-faq-panel-${i}`"
-              class="faq-item__panel"
-              :class="{ 'faq-item__panel--open': openSet.has(i) }"
-              role="region"
-              :aria-labelledby="`td-faq-trigger-${i}`"
-            >
-              <div class="faq-item__panel-inner">
-                <p class="faq-item__a">{{ item.a }}</p>
+          <section aria-labelledby="td-faq-title">
+            <h2 id="td-faq-title" class="td-section__heading">Questions about {{ shortName.toLowerCase() }}</h2>
+            <div class="faq-list">
+              <div v-for="(item, i) in content.faqs" :key="item.q" class="faq-item">
+                <h3 class="faq-item__heading">
+                  <button
+                    :id="`td-faq-trigger-${i}`"
+                    type="button"
+                    class="faq-item__trigger"
+                    :aria-expanded="openSet.has(i)"
+                    :aria-controls="`td-faq-panel-${i}`"
+                    @click="toggleFaq(i)"
+                  >
+                    <span class="faq-item__q">{{ item.q }}</span>
+                    <Plus v-if="!openSet.has(i)" :size="20" :stroke-width="1.75" class="faq-item__icon" aria-hidden="true" />
+                    <Minus v-else :size="20" :stroke-width="1.75" class="faq-item__icon" aria-hidden="true" />
+                  </button>
+                </h3>
+                <div
+                  :id="`td-faq-panel-${i}`"
+                  class="faq-item__panel"
+                  :class="{ 'faq-item__panel--open': openSet.has(i) }"
+                  role="region"
+                  :aria-labelledby="`td-faq-trigger-${i}`"
+                >
+                  <div class="faq-item__panel-inner">
+                    <p class="faq-item__a">{{ item.a }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
+
+        <aside class="td-article__aside">
+          <div class="aside-card">
+            <p class="aside-card__eyebrow">At a glance</p>
+            <dl class="aside-card__facts">
+              <div class="aside-card__fact">
+                <dt>Visits</dt>
+                <dd class="figure">{{ content.quickFacts.visits }}</dd>
+              </div>
+              <div class="aside-card__fact">
+                <dt>Recovery</dt>
+                <dd>{{ content.quickFacts.recovery }}</dd>
+              </div>
+              <div class="aside-card__fact">
+                <dt>Insurance</dt>
+                <dd>{{ content.quickFacts.covers }}</dd>
+              </div>
+            </dl>
+            <a class="btn btn--primary" href="/book/">Book appointment</a>
+            <a class="btn btn--secondary" :href="practice.phoneHref">
+              <Phone :size="18" :stroke-width="1.75" aria-hidden="true" />
+              Call {{ practice.phoneDisplay }}
+            </a>
+          </div>
+
+          <div class="aside-card aside-card--quote">
+            <p class="aside-card__quote-label">Is this you?</p>
+            <p class="aside-card__quote">{{ content.whoItsFor[0] }}</p>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -349,90 +349,115 @@ watch([slug, found], updateMeta)
   }
 }
 
-/* ---- Quick facts ledger ---- */
-.td-facts {
-  background: var(--color-sunk);
-  padding-block: var(--section-tight);
-}
-
-.td-facts__eyebrow {
-  margin-bottom: var(--space-4);
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-ink-3);
-}
-
-.td-facts__ledger {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  margin: 0;
-  padding: 0 var(--space-5);
-  list-style: none;
-  background: var(--color-slip);
-  border: var(--border-hair);
-  border-radius: var(--radius-control);
-  box-shadow: var(--shadow-xs);
-}
-
-.fact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-4) 0;
-  border-bottom: var(--border-hair);
-}
-
-.fact:last-child {
-  border-bottom: 0;
-}
-
-.fact__label {
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-ink-3);
-}
-
-.fact__value {
-  font-size: var(--text-h4);
-  font-weight: var(--weight-semibold);
-  color: var(--color-ink);
-}
-
-@media (min-width: 768px) {
-  .td-facts__ledger {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .fact {
-    padding: 0 var(--space-6);
-    border-bottom: 0;
-  }
-
-  .fact:not(:first-child) {
-    border-left: var(--border-hair);
-  }
-}
-
-/* ---- Generic prose sections ---- */
-.td-section {
+/* ---- Article: main content column + persistent sidebar ---- */
+.td-article {
   background: var(--color-paper);
   padding-block: var(--section-base);
 }
 
-.td-section--tight {
-  padding-block: var(--section-tight);
+.td-article__grid {
+  display: grid;
+  gap: var(--space-16);
 }
 
-.td-section--sunk {
-  background: var(--color-sunk);
-}
-
-.td-section__prose {
+.td-article__main {
+  display: grid;
+  gap: var(--section-tight);
   max-width: var(--measure);
-  margin-inline: 0;
+}
+
+.td-article__main > section:not(:first-child) {
+  padding-top: var(--section-tight);
+  border-top: var(--border-hair);
+}
+
+/* ---- Sidebar: key facts, booking CTA, a pull-quote — sticky at wide viewports ---- */
+.td-article__aside {
+  display: grid;
+  gap: var(--space-6);
+  align-content: start;
+}
+
+.aside-card {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-slip);
+  border: var(--border-hair);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-sm);
+}
+
+.aside-card__eyebrow {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.aside-card__facts {
+  display: grid;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-hair);
+}
+
+.aside-card__fact {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.aside-card__fact dt {
+  color: var(--color-ink-2);
+}
+
+.aside-card__fact dd {
+  margin: 0;
+  font-weight: var(--weight-semibold);
+  text-align: right;
+}
+
+.aside-card--quote {
+  background: var(--color-accent-tint);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.aside-card__quote-label {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.aside-card__quote {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .td-article__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+  }
+
+  .td-article__main {
+    grid-column: 1 / span 7;
+    max-width: none;
+  }
+
+  .td-article__aside {
+    grid-column: 9 / -1;
+    position: sticky;
+    top: calc(var(--space-8) + 64px);
+    height: fit-content;
+  }
 }
 
 .td-section__heading {

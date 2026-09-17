@@ -10,6 +10,11 @@ onMounted(() => {
 function dentistFor(slug) {
   return practice.team.find((t) => t.slug === slug)
 }
+
+const treatmentSlugFor = { veneers: 'veneers', aligners: 'clear-aligners', implant: 'dental-implants' }
+function treatmentFor(caseId) {
+  return practice.treatments.find((t) => t.slug === treatmentSlugFor[caseId])
+}
 </script>
 
 <template>
@@ -57,7 +62,15 @@ function dentistFor(slug) {
                   </a>
                 </dd>
               </div>
+              <div v-if="treatmentFor(c.id)" class="chart__row">
+                <dt>Cost</dt>
+                <dd class="figure">{{ treatmentFor(c.id).price }}</dd>
+              </div>
             </dl>
+
+            <a v-if="treatmentFor(c.id)" class="link-arrow case__cta" :href="`/treatments/${treatmentFor(c.id).slug}/`">
+              What {{ c.label.toLowerCase() }} involves
+            </a>
           </div>
         </li>
       </ul>
@@ -152,6 +165,11 @@ function dentistFor(slug) {
   text-align: right;
 }
 
+.case__cta {
+  margin-top: var(--space-6);
+  font-size: var(--text-body);
+}
+
 .cases__consent {
   margin-top: var(--space-16);
   font-size: var(--text-caption);
@@ -165,14 +183,22 @@ function dentistFor(slug) {
     align-items: start;
   }
 
+  /* Source photos are portrait (698x894) — a wide track blows them up to an
+     awkward height, so the viewer stays capped and the notes column, which
+     naturally runs shorter, gets a related-treatment link to fill its width
+     with something useful instead of empty space. */
   .case__viewer {
-    grid-column: 1 / span 7;
-    max-width: none;
+    grid-column: 1 / span 5;
+    max-width: 420px;
   }
 
   .case__notes {
-    grid-column: 8 / -1;
+    grid-column: 6 / -1;
     padding-top: var(--space-2);
+  }
+
+  .chart {
+    max-width: none;
   }
 }
 
