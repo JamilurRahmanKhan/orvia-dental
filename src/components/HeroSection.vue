@@ -117,8 +117,32 @@ const firstVisitRows = [
   font-size: var(--text-display);
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
+  letter-spacing: -0.035em;
   text-wrap: balance;
+  animation: hero-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.hero__status,
+.hero__lede,
+.hero__actions,
+.hero__trust {
+  animation: hero-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero__status { animation-delay: 0ms; }
+.hero__lede { animation-delay: 60ms; }
+.hero__actions { animation-delay: 120ms; }
+.hero__trust { animation-delay: 180ms; }
+
+.hero__media {
+  animation: hero-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 80ms both;
 }
 
 .hero__lede {
@@ -221,18 +245,46 @@ const firstVisitRows = [
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: var(--color-slip);
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.6);
   border-radius: var(--radius-round);
   box-shadow: var(--shadow-md);
   font-size: var(--text-caption);
   font-weight: var(--weight-semibold);
+  letter-spacing: 0.01em;
   color: var(--color-ink);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .hero__badge {
+    background: var(--color-slip);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .hero__slip {
   position: relative;
   width: min(320px, 86%);
   margin: calc(-1 * var(--space-12)) var(--space-4) 0 auto;
+  animation: hero-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 220ms both;
+}
+
+.hero__slip :deep(.slip) {
+  background: rgb(255 255 255 / 0.78);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-color: rgb(255 255 255 / 0.6);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .hero__slip :deep(.slip) {
+    background: var(--color-slip);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 /* Mobile: CTAs full width */
